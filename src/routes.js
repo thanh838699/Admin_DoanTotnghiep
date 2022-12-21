@@ -8,6 +8,7 @@ import ManageProducts from "views/ManageProducts.jsx";
 import ManageOrders from "views/ManageOrders.jsx";
 import OrderDetail from "views/OrderDetail.jsx";
 import ManageCustomers from "views/Customer.jsx";
+import DeXuatNhapHang from "./views/DeXuatNhapHang";
 var routes = [
   {
     path: "/edit-product/:id",
@@ -79,6 +80,14 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: ManageCustomers,
+    layout: "/admin"
+  },
+  {
+    path: "/propose",
+    name: "Đề xuất nhập hàng",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-puzzle-10",
+    component: DeXuatNhapHang,
     layout: "/admin"
   }
 ];

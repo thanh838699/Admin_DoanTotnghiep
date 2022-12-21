@@ -5,7 +5,7 @@ import { DatePicker, Spin, Button, Table, Icon, Modal } from "antd";
 import { Line, Bar, Pie, Doughnut } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import NumberFormat from "react-number-format";
+
 import YearPicker from "react-year-picker";
 import { auth } from "../actions/user_actions";
 import {
@@ -14,6 +14,7 @@ import {
   reportProducts,
   reportCustomer
 } from "../actions/report_actions";
+import { getProducts, deleteProduct } from "../actions/product_actions";
 import moment from "moment";
 // reactstrap components
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
@@ -21,6 +22,7 @@ import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 import { chartExample1, chartExample4 } from "variables/charts.jsx";
 import TextArea from "antd/lib/input/TextArea";
 import currency from "currency-formatter";
+import NotificationAlert from "react-notification-alert";
 const { RangePicker } = DatePicker;
 class Dashboard extends React.Component {
   constructor(props) {
@@ -58,6 +60,28 @@ class Dashboard extends React.Component {
     };
   }
   componentDidMount() {
+    this.props.dispatch(getProducts()).then(res => {
+      this.setState({ allProducts: res.payload });
+      res.payload.forEach(item => {
+        if (item.quantity == 0 && item.quantity < 10) {
+          var options = {};
+          options = {
+            place: "tr",
+            message: (
+              <div>
+                <div>
+                  <b>Có sản phẩm sắp hết hàng, ADMIN chú ý nhập hàng kịp thời!</b>
+                </div>
+              </div>
+            ),
+            type: "danger",
+            icon: "tim-icons icon-bell-55",
+            autoDismiss: 7
+          };
+          this.refs.notificationAlert.notificationAlert(options);
+        }
+      });
+    });
     const yearNow = new Date().getFullYear();
     this.props
       .dispatch(reportMonths({ year: `${yearNow - 1}-01-01` }))
@@ -561,6 +585,9 @@ class Dashboard extends React.Component {
               </Card>
             </Col>
           </Row>
+          <div className="react-notification-alert-container">
+            <NotificationAlert ref="notificationAlert" />
+          </div>
           <Row>
             <Col lg="4">
               <Card className="card-chart">
