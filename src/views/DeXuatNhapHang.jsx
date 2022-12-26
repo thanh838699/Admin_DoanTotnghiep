@@ -89,16 +89,16 @@ class DeXuatNhapHang extends React.Component {
       });
       if (res.payload.size > 0) {
         res.payload.results.map(item => {
-          newlabelDateRangeProduct.unshift(`Product ${item._id}`);
-          newdataDateRangeProduct.unshift(item.amount);
+          newlabelDateRangeProduct.unshift(`Sản phẩm ${item._id}`);
+          newdataDateRangeProduct.unshift(item.amount);       
         });
       } else {
         newdataDateRangeProduct = [];
-        newlabelDateRangeProduct = [];
+        newlabelDateRangeProduct = [];  
       }
       this.setState({
         labelDateRangeProduct: newlabelDateRangeProduct,
-        dataDateRangeProduct: newdataDateRangeProduct,
+        dataDateRangeProduct: newdataDateRangeProduct,     
         dateStartProduct: dateString[0],
         dateEndProduct: dateString[1],
         toggleDateRangeProduct: true
@@ -239,7 +239,7 @@ class DeXuatNhapHang extends React.Component {
             labels: this.state.labelDateRangeProduct,
             datasets: [
               {
-                label: "Amount: ",
+                label: "Tổng: ",
                 fill: true,
                 backgroundColor: gradientStroke,
                 borderColor: "#1f8ef1",
@@ -253,8 +253,10 @@ class DeXuatNhapHang extends React.Component {
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 15,
                 pointRadius: 4,
-                data: this.state.dataDateRangeProduct
-              }
+                data: this.state.dataDateRangeProduct 
+              },
+              
+              
             ]
           };
         }
