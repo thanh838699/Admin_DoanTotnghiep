@@ -561,7 +561,7 @@ class Dashboard extends React.Component {
                           thousandSeparator={true}
                           prefix={"$"}
                         /> */}
-                        `${currency.format(this.totalAmount(dataDateRangeAllProduct), {code:"VND"})}`
+                        {currency.format(this.totalAmount(dataDateRangeAllProduct), {code:"VND"})}
                       </CardTitle>
                       {dataDateRangeAllProduct.length ? (
                         " "
@@ -627,7 +627,7 @@ class Dashboard extends React.Component {
                       thousandSeparator={true}
                       prefix={"$"}
                     /> */}
-                    `${currency.format(this.totalAmount(dataDateRangeAllCustomer), {code:"VND"})}`
+                    {currency.format(this.totalAmount(dataDateRangeAllCustomer), {code:"VND"})}
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
@@ -672,7 +672,7 @@ class Dashboard extends React.Component {
                       thousandSeparator={true}
                       prefix={"$"}
                     /> */}
-                      `${currency.format(this.totalAmount(dataMonthAll), {code:"VND"})}`
+                      {currency.format(this.totalAmount(dataMonthAll), {code:"VND"})}
                   </CardTitle>
                 </CardHeader>
                 {dataMonthAll.length ? (
@@ -724,7 +724,7 @@ class Dashboard extends React.Component {
                       thousandSeparator={true}
                       prefix={"đ"}
                     /> */}
-                    `${currency.format(this.totalAmount(dataDateRangeAll), {code:"VND"})}`
+                    {currency.format(this.totalAmount(dataDateRangeAll), {code:"VND"})}
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

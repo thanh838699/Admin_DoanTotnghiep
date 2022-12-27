@@ -79,6 +79,7 @@ class DeXuatNhapHang extends React.Component {
   onChangeDateRangeProduct = (date, dateString) => {
     let newdataDateRangeProduct = [];
     let newlabelDateRangeProduct = [];
+    let newdataDateSoldProduct = [];
     let data = {
       start: dateString[0],
       end: dateString[1]
@@ -87,18 +88,22 @@ class DeXuatNhapHang extends React.Component {
       this.setState({
         dataDateRangeAllProduct: res.payload.results
       });
+      console.log(this.state.dataDateRangeAllProduct)
       if (res.payload.size > 0) {
         res.payload.results.map(item => {
           newlabelDateRangeProduct.unshift(`Sản phẩm ${item._id}`);
-          newdataDateRangeProduct.unshift(item.amount);       
+          newdataDateRangeProduct.unshift(item.amount); 
+          newdataDateSoldProduct.unshift(item.sold)      
         });
       } else {
         newdataDateRangeProduct = [];
         newlabelDateRangeProduct = [];  
+        newdataDateSoldProduct = [];
       }
       this.setState({
         labelDateRangeProduct: newlabelDateRangeProduct,
-        dataDateRangeProduct: newdataDateRangeProduct,     
+        dataDateRangeProduct: newdataDateRangeProduct, 
+        DataDateSoldProduct: newdataDateSoldProduct,    
         dateStartProduct: dateString[0],
         dateEndProduct: dateString[1],
         toggleDateRangeProduct: true
@@ -169,7 +174,7 @@ class DeXuatNhapHang extends React.Component {
 
             <Divider type="vertical" />
             <Popconfirm
-              title={`Are you sure delete this product ${record.Name}`}
+              title={`Bạn có chắc muốn xóa ${record.Name}`}
               onConfirm={() => this.onconfirm(record.key)}
               onCancel={this.cancel}
               okText="Yes"
@@ -238,26 +243,43 @@ class DeXuatNhapHang extends React.Component {
           return {
             labels: this.state.labelDateRangeProduct,
             datasets: [
+              // {
+              //   label: "Tổng: ",
+              //   fill: true,
+              //   backgroundColor: gradientStroke,
+              //   borderColor: "#1f8ef1",
+              //   borderWidth: 2,
+              //   borderDash: [],
+              //   borderDashOffset: 0.0,
+              //   pointBackgroundColor: "#1f8ef1",
+              //   pointBorderColor: "rgba(255,255,255,0)",
+              //   pointHoverBackgroundColor: "#1f8ef1",
+              //   pointBorderWidth: 20,
+              //   pointHoverRadius: 4,
+              //   pointHoverBorderWidth: 15,
+              //   pointRadius: 4,
+              //   data: this.state.dataDateRangeProduct 
+              // },
               {
-                label: "Tổng: ",
+                label: "SL bán: ",
                 fill: true,
                 backgroundColor: gradientStroke,
-                borderColor: "#1f8ef1",
+                borderColor: "#ee141f",
                 borderWidth: 2,
                 borderDash: [],
                 borderDashOffset: 0.0,
-                pointBackgroundColor: "#1f8ef1",
+                pointBackgroundColor: "#f1501f",
                 pointBorderColor: "rgba(255,255,255,0)",
-                pointHoverBackgroundColor: "#1f8ef1",
+                pointHoverBackgroundColor: "#f17e1f",
                 pointBorderWidth: 20,
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 15,
                 pointRadius: 4,
-                data: this.state.dataDateRangeProduct 
-              },
-              
-              
+                data: this.state.DataDateSoldProduct 
+              }
+                          
             ]
+            
           };
         }
       };
@@ -267,7 +289,7 @@ class DeXuatNhapHang extends React.Component {
         dateStartProduct,
         dateEndProduct,
       } = this.state;
-      console.log(this.state.dataDateRangeAllProduct)
+      
     return (
       <>
      
@@ -284,7 +306,7 @@ class DeXuatNhapHang extends React.Component {
                       >
                         {toggleDateRangeProduct ? (
                           <>
-                            Report Products Date Range:{" "}
+                            Báo cáo số lượng sản phẩm đã bán:{" "}
                             <strong style={{ color: "black" }}>
                               {moment(new Date(dateStartProduct)).format("LL")}{" "}
                               {"- "}
@@ -293,7 +315,7 @@ class DeXuatNhapHang extends React.Component {
                           </>
                         ) : (
                           <>
-                            Sản phẩm bán chạy hôm nay:{" "}
+                            Sản phẩm bán chạy :{" "}
                             <strong style={{ color: "black" }}>
                               {moment(new Date(Date.now())).format("LL")}
                             </strong>
