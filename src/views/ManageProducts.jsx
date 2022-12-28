@@ -24,6 +24,7 @@ class ManageProducts extends React.Component {
     allProducts: []
   };
 
+
   componentDidMount() {
     this.props.dispatch(getProducts()).then(res => {
       this.setState({ allProducts: res.payload });
